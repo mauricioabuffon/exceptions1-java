@@ -33,19 +33,15 @@ public class Program {
 			System.out.print("CheckOut date: ");
 			checkOut = sdf.parse(sc.next());
 
-			Date now = new Date();
-			if (checkIn.before(now) || checkOut.before(now)) {
-				System.out.println(" Error - dates need to be after actual");
+			String error = reservation.updateDates(checkIn, checkOut);
+			if (error != null) {
+				System.out.println("Error in Reservation: " + error + " in reservation: " + sdf.format(checkIn) + " , " + sdf.format(checkOut));
 			} else {
-				if (!checkOut.after(checkIn)) {
-					System.out.println("Inconsistency into dates");
-				} else
-					reservation.updateDates(checkIn, checkOut);
 				System.out.println("Reservation: " + reservation);
 
 			}
-
 		}
+
 		sc.close();
 	}
 }
